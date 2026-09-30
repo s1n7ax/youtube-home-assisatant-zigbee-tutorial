@@ -1,0 +1,18 @@
+services:
+  home-assistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: home-assistant
+    restart: unless-stopped
+    ports:
+      - "8124:8123"
+    volumes:
+      - ./config:/config
+      - /run/dbus:/run/dbus:ro
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/<device_location>:/dev/ttyUSB0
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    environment:
+      - TZ=${TZ:-Etc/UTC}
