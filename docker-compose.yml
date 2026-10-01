@@ -4,13 +4,14 @@ services:
     container_name: home-assistant
     restart: unless-stopped
     ports:
-      - "8124:8123"
+      - "80:8123"
     volumes:
       - ./config:/config
       - /run/dbus:/run/dbus:ro
       - /run/udev:/run/udev:ro
     devices:
-      - /dev/<device_location>:/dev/ttyUSB0
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/serial/by-id/<device_id>:/dev/serial/by-id/<device_id>
     cap_add:
       - NET_ADMIN
       - NET_RAW
